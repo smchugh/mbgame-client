@@ -1,0 +1,53 @@
+<head>
+  <title>MBGame Client</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to MBGame</h1>
+            <div class="login">{{> loginButtons}}</div>
+        </header>
+
+        <div class="game-space">
+            {{#if currentUser}}
+                <div class="game-buttons">
+                    <button class="reset" disabled>Reset</button>
+                    <button class="submit" disabled>Submit</button>
+                </div>
+                <div class="turn-status">You</div>
+
+                {{#if game_id}}
+                    <div class="errors"></div>
+
+                    <div class="piles">
+                        {{#each piles}}
+                            {{> pile}}
+                        {{/each}}
+                    </div>
+                {{else}}
+                    <button class="create-game">Create Game</button>
+                {{/if}}
+            {{else}}
+                <div class="login-prompt">Please log in to access your game.</div>
+            {{/if}}
+        </div>
+    </div>
+</body>
+
+<template name="pile">
+    <div class="pile" data-pile_id="{{pile_id}}" data-num_beans="{{num_beans}}">
+        <div class="num_beans">{{bean_count pile_id num_beans}}</div>
+        <div class="bean_pile">
+            {{#each beans}}
+                {{> bean}}
+            {{/each}}
+        </div>
+    </div>
+</template>
+
+<template name="bean">
+    <div class="bean" style="left: {{left_offset}}px; top: {{top_offset}}px;">
+        <img src="/images/bean.png">
+    </div>
+</template>
